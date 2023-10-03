@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("application")
 }
 
 group = "com.github.professorSam"
@@ -14,4 +15,13 @@ dependencies {
     implementation("io.javalin:javalin:5.6.1")
     implementation("io.javalin:javalin-rendering:5.6.1")
     implementation("gg.jte:jte:3.1.1")
+}
+
+tasks.compileJava {
+    sourceCompatibility = JavaVersion.VERSION_17.toString()
+    targetCompatibility = JavaVersion.VERSION_17.toString()
+}
+
+application {
+    mainClass = "com.github.professorSam.Main"
 }
