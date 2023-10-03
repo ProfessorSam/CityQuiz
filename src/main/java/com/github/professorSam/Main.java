@@ -1,26 +1,21 @@
 package com.github.professorSam;
 
 import com.github.professorSam.handler.IndexGetHandler;
-import gg.jte.CodeResolver;
-import gg.jte.ContentType;
-import gg.jte.TemplateEngine;
-import gg.jte.resolve.DirectoryCodeResolver;
+import com.github.professorSam.handler.LoginGetHandler;
 import io.javalin.Javalin;
-
-import java.nio.file.Path;
+import io.javalin.rendering.template.JavalinJte;
 
 public class Main {
 
     private final Javalin webserver;
-    private final TemplateEngine templateEngine;
     private static Main INSTANCE;
 
 
     private Main(){
-        CodeResolver codeResolver = new DirectoryCodeResolver(Path.of("jte"));
-        templateEngine = TemplateEngine.create(codeResolver, ContentType.Html);
+        JavalinJte.init();
         webserver = Javalin.create()
                 .get("/", new IndexGetHandler())
+                .get("/login", new LoginGetHandler())
                 .start(80);
     }
 
@@ -34,7 +29,7 @@ public class Main {
         }
     }
 
-    public static Main getINSTANCE() {
+    public static Main getInstance() {
         return INSTANCE;
     }
 
