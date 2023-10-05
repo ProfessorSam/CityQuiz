@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver-deployment
+  labels:
+    app.kubernetes.io/name: webserver
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: webserver
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: webserver
+    spec:
+      containers:
+        - name: webserver
+          image: docker.io/professorsam/cityquiz_webserver:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          env:
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: database-secret
+                  key: user-password
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-secret
+                  key: user-password
+
+

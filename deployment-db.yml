@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - image: mysql:5.6
+          name: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-secret
+                  key: root-password
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: database-secret
+                  key: user-name
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-secret
+                  key: user-password
+            - name: MYSQL_DATABASE
+              value: cityquiz
+          ports:
+            - containerPort: 3306
+              name: mysql
