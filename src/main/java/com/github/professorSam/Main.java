@@ -1,5 +1,6 @@
 package com.github.professorSam;
 
+import com.github.professorSam.db.Database;
 import com.github.professorSam.handler.IndexGetHandler;
 import com.github.professorSam.handler.LoginGetHandler;
 import com.github.professorSam.handler.LoginPostHandler;
@@ -22,9 +23,16 @@ public class Main {
 
 
     private Main(boolean dev){
-        logger.info("Loading templating engine");
+        logger.info("Loading templating engine...");
         JavalinJte.init(createTemplateEngine(dev));
-        logger.info("Template engine loaded. Starting webserver...");
+        logger.info("Template engine loaded. Testing DB connection...");
+        if(!Database.testConnection()){
+            logger.warn("Database connection is not valid! Exit application...");
+            System.exit(-1);
+        }
+        logger.info("DB connection valid. Creating tables...");
+        Database.setupTables();
+        logger.info("Tables created. Starting webserver...");
         webserver = Javalin.create()
                 .get("/", new IndexGetHandler())
                 .get("/login", new LoginGetHandler())
@@ -36,7 +44,10 @@ public class Main {
         List<String> arguments = List.of(args);
         boolean dev = arguments.contains("--dev");
         INSTANCE = new Main(dev);
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> INSTANCE.getWebserver().stop()));
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            INSTANCE.getWebserver().stop();
+            Database.close();
+        }));
         while(true){
 
         }
