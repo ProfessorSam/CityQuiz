@@ -11,7 +11,7 @@ import java.sql.*;
 import java.util.UUID;
 
 public class Database {
-    private static HikariDataSource dataSource;
+    private static final HikariDataSource dataSource;
     private static final Logger logger = LoggerFactory.getLogger("Database");
 
     static {
@@ -107,10 +107,37 @@ public class Database {
         }
     }
 
+    public static Player getPlayer(String userID) {
+        String selectPlayerAndGroupSQL = "SELECT p.ID AS PlayerID, p.Name AS PlayerName, " +
+                "p.Nationality AS PlayerNationality, " +
+                "g.GroupID, g.GroupName, g.CurrentQuest " +
+                "FROM Players p " +
+                "INNER JOIN Groups g ON p.GroupID = g.GroupID " +
+                "WHERE p.ID = ?";
+        try(Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(selectPlayerAndGroupSQL)){
+            statement.setString(1, userID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String playerName = resultSet.getString("PlayerName");
+                String playerNationality = resultSet.getString("PlayerNationality");
+                String groupID = resultSet.getString("GroupID");
+                String groupName = resultSet.getString("GroupName");
+                int currentQuest = resultSet.getInt("CurrentQuest");
+                Group group = new Group(UUID.fromString(groupID), groupName, currentQuest);
+                return new Player(UUID.fromString(userID), playerName, playerNationality, group);
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            logger.error("SQL Exception on player query", e);
+            return null;
+        }
+    }
+
     public static void close() {
         if (dataSource != null) {
             dataSource.close();
         }
     }
-
 }

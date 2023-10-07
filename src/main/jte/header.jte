@@ -6,11 +6,12 @@
     }
 
     .header {
-        background-color: #7AC6C7;
+        background-color: #903CBC;
         height: 8vh;
         display: flex;
         align-items: center;
         justify-content: left;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
     }
 
     .header-text {

@@ -17,14 +17,13 @@ public class LoginPostHandler implements Handler {
         String username = context.formParam("username");
         String groupname = context.formParam("groupname");
         String language = context.formParam("language");
+        if(username == null || groupname == null || language == null){
+            context.status(405);
+            return;
+        }
         logger.info("Signup: " + username + " in " + groupname + " with language " + language);
-
         Player player = Database.createPlayerAndAddToGroup(username, groupname.toLowerCase(), language);
-        context.result("PlayerID: " + player.id().toString() +
-                " PlayerName: " + player.name()+
-                " PlayerLang: " + player.nationality() +
-                " GroupID: " + player.group().id().toString() +
-                " GroupName: " + player.group().name() +
-                " GroupQuest: " + player.group().quest());
+        context.cookieStore().set("UserID", player.id().toString());
+        context.redirect("/");
     }
 }

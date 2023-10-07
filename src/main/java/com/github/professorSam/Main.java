@@ -4,6 +4,9 @@ import com.github.professorSam.db.Database;
 import com.github.professorSam.handler.IndexGetHandler;
 import com.github.professorSam.handler.LoginGetHandler;
 import com.github.professorSam.handler.LoginPostHandler;
+import com.github.professorSam.handler.QuestOverviewGetHandler;
+import com.github.professorSam.quest.Quest;
+import com.github.professorSam.quest.QuestFactory;
 import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
 import gg.jte.resolve.DirectoryCodeResolver;
@@ -12,18 +15,27 @@ import io.javalin.rendering.template.JavalinJte;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
 public class Main {
 
     private final Javalin webserver;
+    private List<Quest> quests;
     private static Main INSTANCE;
     private static final Logger logger = LoggerFactory.getLogger("Main");
 
 
     private Main(boolean dev){
-        logger.info("Loading templating engine...");
+        logger.info("Loading quests...");
+        try {
+            quests = QuestFactory.createQuestsFromJson();
+        } catch (IOException e) {
+            logger.error("Can't read or find quests.json");
+            System.exit(-1);
+        }
+        logger.info("Questes loaded. Loading templating engine...");
         JavalinJte.init(createTemplateEngine(dev));
         logger.info("Template engine loaded. Testing DB connection...");
         if(!Database.testConnection()){
@@ -37,6 +49,7 @@ public class Main {
                 .get("/", new IndexGetHandler())
                 .get("/login", new LoginGetHandler())
                 .post("/login", new LoginPostHandler())
+                .get("/questoverview", new QuestOverviewGetHandler())
                 .start(80);
     }
 
@@ -68,5 +81,8 @@ public class Main {
 
     public Javalin getWebserver() {
         return webserver;
+    }
+    public List<Quest> getQuests() {
+        return quests;
     }
 }

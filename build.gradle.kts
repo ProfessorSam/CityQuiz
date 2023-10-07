@@ -22,6 +22,7 @@ dependencies {
     implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("gg.jte:jte:3.1.1")
     implementation("mysql:mysql-connector-java:5.1.6")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.0")
 }
 
 tasks.jar {

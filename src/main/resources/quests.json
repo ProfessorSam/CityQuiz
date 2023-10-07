@@ -1,0 +1,94 @@
+[
+  {
+    "id": 1,
+    "type": "answer",
+    "titleDE": "Das Geheimnis der Kirche",
+    "titleFR": "Le secret de l'Église",
+    "descriptionDE": "Gehe zur Pauluskirche. Wie viele Vögel kannst du auf dem Dach zählen?",
+    "descriptionFR": "Va à la \"Pauluskirche\". Combien d'oiseaux peux-tu compter sur le toit ?",
+    "rightAnswer": "7 Vögel"
+  }, {
+    "id": 2,
+    "type": "multiple choice",
+    "titleDE": "Der Edeka",
+    "titleFR": "L'Edeka",
+    "descriptionDE": "Gehe in den Edeka rechts neben der \"Pauluskirche\" und kaufe gehe in die Softdrinkabteilung. Welche Colahersteller ist dort vertreten?",
+    "descriptionFR": "Va dans le magasin Edeka à droite de la \"Pauluskirche\" et achète au rayon des boissons non alcoolisées. Quel fabricant de cola y est représenté?",
+    "rightAnswer": "Pepsi",
+    "choices": [
+      "Cola", "Pepsi", "FritzCola", "Sinalco"
+    ]
+  },
+  {
+    "id": 3,
+    "type": "picture",
+    "titleDE": "Fotozeit",
+    "titleFR": "Temps de la photo",
+    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
+    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+  },
+  {
+    "id": 4,
+    "type": "picture",
+    "titleDE": "Fotozeit",
+    "titleFR": "Temps de la photo",
+    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
+    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+  },
+  {
+    "id": 5,
+    "type": "picture",
+    "titleDE": "Fotozeit",
+    "titleFR": "Temps de la photo",
+    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
+    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+  },
+  {
+    "id": 6,
+    "type": "picture",
+    "titleDE": "Fotozeit",
+    "titleFR": "Temps de la photo",
+    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
+    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+  },
+  {
+    "id": 7,
+    "type": "picture",
+    "titleDE": "Fotozeit",
+    "titleFR": "Temps de la photo",
+    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
+    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+  },
+  {
+    "id": 8,
+    "type": "picture",
+    "titleDE": "Fotozeit",
+    "titleFR": "Temps de la photo",
+    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
+    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+  },
+  {
+    "id": 9,
+    "type": "picture",
+    "titleDE": "Fotozeit",
+    "titleFR": "Temps de la photo",
+    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
+    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+  },
+  {
+    "id": 10,
+    "type": "picture",
+    "titleDE": "Fotozeit",
+    "titleFR": "Temps de la photo",
+    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
+    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+  },
+  {
+    "id": 11,
+    "type": "picture",
+    "titleDE": "Fotozeit",
+    "titleFR": "Temps de la photo",
+    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
+    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+  }
+]
