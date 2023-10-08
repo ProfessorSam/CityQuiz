@@ -1,10 +1,7 @@
 package com.github.professorSam;
 
 import com.github.professorSam.db.Database;
-import com.github.professorSam.handler.IndexGetHandler;
-import com.github.professorSam.handler.LoginGetHandler;
-import com.github.professorSam.handler.LoginPostHandler;
-import com.github.professorSam.handler.QuestOverviewGetHandler;
+import com.github.professorSam.handler.*;
 import com.github.professorSam.quest.Quest;
 import com.github.professorSam.quest.QuestFactory;
 import gg.jte.ContentType;
@@ -50,6 +47,8 @@ public class Main {
                 .get("/login", new LoginGetHandler())
                 .post("/login", new LoginPostHandler())
                 .get("/questoverview", new QuestOverviewGetHandler())
+                .get("/questview", new QuestViewGetHandler())
+                .post("/questview", new QuestViewPostHandler())
                 .start(80);
     }
 

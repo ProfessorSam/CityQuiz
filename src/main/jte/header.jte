@@ -11,7 +11,7 @@
         display: flex;
         align-items: center;
         justify-content: left;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 1);
     }
 
     .header-text {

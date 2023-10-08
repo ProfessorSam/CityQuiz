@@ -45,6 +45,11 @@
         align-items: center;
     }
 
+    .timeline a {
+        text-decoration: none;
+        color: rgba(0, 0, 0, 0.83);
+    }
+
     .event {
         display: flex;
         align-items: center;
@@ -99,9 +104,9 @@
                      <div class="circle">${i + 1}</div>
                     <div class="line"></div>
                     @if(context.player().nationality() == Player.Nationality.FRENCH)
-                        <div class="text"><b>${context.questList().get(i).getTitleFR()}</b></div>
+                        <div class="text"><b><a href="/questview">${context.questList().get(i).getTitleFR()}</a></b></div>
                     @else
-                        <div class="text"><b>${context.questList().get(i).getTitleDE()}</b></div>
+                        <div class="text"><b><a href="/questview">${context.questList().get(i).getTitleDE()}</a></b></div>
                     @endif
                 </div>
             @else
