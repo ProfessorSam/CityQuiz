@@ -1,5 +1,6 @@
 package com.github.professorSam.db;
 
+import com.github.professorSam.db.model.Answer;
 import com.github.professorSam.db.model.Group;
 import com.github.professorSam.db.model.Player;
 import com.zaxxer.hikari.HikariConfig;
@@ -60,6 +61,15 @@ public class Database {
                     "FOREIGN KEY (GroupID) REFERENCES Groups(GroupID)" +
                     ")";
             statement.execute(createPlayerTableSQL);
+            String createAnswersTableSQL = "CREATE TABLE IF NOT EXISTS Answers (" +
+                    "UserID VARCHAR(36)," +
+                    "QuestID VARCHAR(30)," +
+                    "AnswerTimestamp TIMESTAMP," +
+                    "QuestType VARCHAR(10)," +
+                    "Content TEXT," +
+                    "FOREIGN KEY (UserID) REFERENCES Players(ID)" +
+                    ")";
+            statement.execute(createAnswersTableSQL);
         } catch (SQLException e) {
             logger.error("Error setting up tables: " + e.getMessage());
         }
@@ -134,6 +144,26 @@ public class Database {
             return null;
         }
     }
+
+    public static void addAnswerAndIncrementCurrentQuest(Answer answer){
+        String insertAnswerSQL = "INSERT INTO Answers (UserID, QuestID, AnswerTimestamp, QuestType, Content) VALUES (?, ?, ?, ?, ?)";
+        String incrementCurrentQuestSQL = "UPDATE Groups SET CurrentQuest = CurrentQuest + 1 WHERE GroupID = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement insertStatement = connection.prepareStatement(insertAnswerSQL);
+             PreparedStatement incrementStatement = connection.prepareStatement(incrementCurrentQuestSQL)){
+            insertStatement.setString(1, answer.player().id().toString());
+            insertStatement.setString(2, answer.quest().getId());
+            insertStatement.setTimestamp(3, Timestamp.from(answer.answerTimestamp()));
+            insertStatement.setString(4, answer.type().toString());
+            insertStatement.setString(5, answer.content());
+            insertStatement.executeUpdate();
+            incrementStatement.setString(1, answer.player().group().id().toString());
+            incrementStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("SQL Exception on answer update!", e);
+        }
+    }
+
 
     public static void close() {
         if (dataSource != null) {

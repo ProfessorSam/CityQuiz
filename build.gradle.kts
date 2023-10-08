@@ -23,6 +23,7 @@ dependencies {
     implementation("gg.jte:jte:3.1.1")
     implementation("mysql:mysql-connector-java:5.1.6")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.0")
+    implementation("io.minio:minio:8.5.6")
 }
 
 tasks.jar {

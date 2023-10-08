@@ -31,5 +31,15 @@ spec:
                 secretKeyRef:
                   name: database-secret
                   key: user-password
+            - name: MINIO_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: filestorage-secret
+                  key: access-key
+            - name: MINIO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: filestorage-secret
+                  key: secret-key
 
 

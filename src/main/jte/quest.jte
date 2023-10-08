@@ -82,7 +82,7 @@
             @if(context.player().nationality() == Player.Nationality.GERMAN)
                 <h1>${context.quest().getTitleDE()}</h1>
                 <p>${context.quest().getDescriptionDE()}</p>
-                <form action="/questview" method="post">
+                <form action="/questview" method="post" enctype="multipart/form-data">
                     @if(context.quest() instanceof AnswerQuest)
                         <label for="answer">Deine Antwort:</label>
                         <input type="text" id="answer" name="answer" required>
@@ -102,7 +102,7 @@
                         <button type="submit">Abgeben</button>
                     @elseif(context.quest() instanceof PictureQuest)
                         <label for="answer">Wähle ein Foto:</label>
-                        <input type="file" id="answer" name="picture" accept="image/*" capture="user">
+                        <input type="file" id="picture" name="picture" accept="image/*" capture="user">
                         <br>
                         <button type="submit">Hochladen</button>
                     @endif
@@ -130,7 +130,7 @@
                         <button type="submit">Donner ta réponse</button>
                     @elseif(context.quest() instanceof PictureQuest)
                         <label for="answer">Choisis une photo:</label>
-                        <input type="file" id="answer" name="picture" accept="image/*" capture="user">
+                        <input type="file" id="picture" name="picture" accept="image/*" capture="user">
                         <br>
                         <button type="submit">Upload</button>
                     @endif

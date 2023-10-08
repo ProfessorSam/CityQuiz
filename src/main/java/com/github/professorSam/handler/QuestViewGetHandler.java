@@ -19,20 +19,20 @@ public class QuestViewGetHandler implements Handler {
     private static final Logger logger = LoggerFactory.getLogger("QuestOverviewGet");
 
     @Override
-    public void handle(@NotNull Context context) throws Exception {
+    public void handle(@NotNull Context context) {
         String userID = context.cookieStore().get("UserID");
         if(userID == null || userID.equals("null")){
             context.redirect("/");
             return;
         }
-        long start = Instant.now().getNano();
+        long start = Instant.now().toEpochMilli();
         Player player = Database.getPlayer(userID);
         Quest quest = Main.getInstance().getQuests().get(player.group().quest());
         if(quest == null){
             context.result("Quest not found!");
         }
         context.render("quest.jte", Collections.singletonMap("context", new QuestViewContext(quest, player)));
-        long end = Instant.now().getNano();
+        long end = Instant.now().toEpochMilli();
         logger.info("in " + (end - start) + "ms for " + player.name() + " in group " + player.group().name());
     }
 }

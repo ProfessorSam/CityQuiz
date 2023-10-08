@@ -1,6 +1,7 @@
 package com.github.professorSam;
 
 import com.github.professorSam.db.Database;
+import com.github.professorSam.db.FileStorage;
 import com.github.professorSam.handler.*;
 import com.github.professorSam.quest.Quest;
 import com.github.professorSam.quest.QuestFactory;
@@ -25,7 +26,7 @@ public class Main {
 
 
     private Main(boolean dev){
-        logger.info("Loading quests...");
+        logger.info("Starting! Loading quests...");
         try {
             quests = QuestFactory.createQuestsFromJson();
         } catch (IOException e) {
@@ -34,7 +35,12 @@ public class Main {
         }
         logger.info("Questes loaded. Loading templating engine...");
         JavalinJte.init(createTemplateEngine(dev));
-        logger.info("Template engine loaded. Testing DB connection...");
+        logger.info("Template engine loaded. Loading file storage...");
+        if(!FileStorage.init()){
+            logger.warn("Can't load minio file storage! Exiting...");
+            System.exit(-1);
+        }
+        logger.info("File storage loaded! Testing DB connection...");
         if(!Database.testConnection()){
             logger.warn("Database connection is not valid! Exit application...");
             System.exit(-1);
