@@ -1,14 +1,20 @@
 package com.github.professorSam.db;
 
+import com.github.professorSam.Main;
 import com.github.professorSam.db.model.Answer;
 import com.github.professorSam.db.model.Group;
 import com.github.professorSam.db.model.Player;
+import com.github.professorSam.quest.Quest;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class Database {
@@ -161,6 +167,122 @@ public class Database {
             incrementStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error("SQL Exception on answer update!", e);
+        }
+    }
+
+    public static int getPlayerCount() {
+        String query = "SELECT COUNT(*) AS PlayerCount FROM Players";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("PlayerCount");
+            }
+            return 0;
+        } catch (SQLException e) {
+            logger.error("Can't get player count! ", e);
+            return -1;
+        }
+    }
+
+    public static int getGroupCount() {
+        String query = "SELECT COUNT(*) AS GroupCount FROM `Groups`";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("GroupCount");
+            }
+            return 0;
+        } catch (SQLException e) {
+            logger.error("Can't get group count! ", e);
+            return -1;
+        }
+    }
+
+    public static int getDoneGroups() {
+        String query = "SELECT COUNT(*) AS GroupsDone FROM `Groups` WHERE CurrentQuest = " + Main.getInstance().getQuests().size();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("GroupsDone");
+            }
+            return 0;
+        } catch (SQLException e) {
+            logger.error("Can't get done groups! ", e);
+            return -1;
+        }
+    }
+
+    public static HashMap<Quest, List<Answer>> getAnswers(){
+        HashMap<Quest, List<Answer>> answersByQuest = new HashMap<>();
+
+        String sql = "SELECT A.QuestID, A.AnswerTimestamp, A.QuestType, A.Content, " +
+                "P.ID, P.Name, P.Nationality, G.GroupName " +
+                "FROM Answers A " +
+                "INNER JOIN Players P ON A.UserID = P.ID " +
+                "INNER JOIN Groups G ON P.GroupID = G.GroupID";
+
+        try (Connection connection = getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String questID = resultSet.getString("QuestID");
+                Instant answerTimestamp = resultSet.getTimestamp("AnswerTimestamp").toInstant();
+                String questType = resultSet.getString("QuestType");
+                String content = resultSet.getString("Content");
+                UUID playerID = UUID.fromString(resultSet.getString("ID"));
+                String playerName = resultSet.getString("Name");
+                String nationality = resultSet.getString("Nationality");
+                String groupName = resultSet.getString("GroupName");
+
+                Quest quest = getQuestByID(questID);
+                Player player = new Player(playerID, playerName, nationality, new Group(UUID.randomUUID(), groupName, 0));
+                Answer answer = new Answer(player, answerTimestamp, Answer.AnswerType.parse(questType), content, quest);
+                answersByQuest.computeIfAbsent(quest, k -> new ArrayList<>()).add(answer);
+            }
+            return answersByQuest;
+        } catch (SQLException e) {
+            logger.error("Can't get answers!", e);
+            return new HashMap<>();
+        }
+    }
+
+    private static Quest getQuestByID(String id){
+        for(Quest quest : Main.getInstance().getQuests()){
+            if(quest.getId().equals(id)){
+                return quest;
+            }
+        }
+        return null;
+    }
+
+    public static HashMap<Group, List<Player>> getAllPlayersInGroups() {
+        String queryPlayersAndGroupsSQL = "SELECT G.GroupID, G.GroupName, G.CurrentQuest, P.ID, P.Name, P.Nationality " +
+                "FROM Groups G " +
+                "LEFT JOIN Players P ON G.GroupID = P.GroupID";
+        try (Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(queryPlayersAndGroupsSQL)){
+            ResultSet resultSet = statement.executeQuery();
+            HashMap<Group, List<Player>> groupPlayerMap = new HashMap<>();
+            while (resultSet.next()){
+                UUID groupID = UUID.fromString(resultSet.getString("GroupID"));
+                String groupName = resultSet.getString("GroupName");
+                UUID playerID = UUID.fromString(resultSet.getString("ID"));
+                String playerName = resultSet.getString("Name");
+                String nationality = resultSet.getString("Nationality");
+                int currentQuest = resultSet.getInt("CurrentQuest");
+
+                Group group = new Group(groupID, groupName, currentQuest);
+                Player player = new Player(playerID, playerName, nationality, group);
+
+                groupPlayerMap.computeIfAbsent(group, k -> new ArrayList<>()).add(player);
+            }
+            return groupPlayerMap;
+        } catch (SQLException e) {
+            logger.error("Can't get answers!", e);
+            return new HashMap<>();
         }
     }
 

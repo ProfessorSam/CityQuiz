@@ -49,7 +49,18 @@ public class FileStorage {
             );
             logger.info("Uploaded " + id);
         } catch (MinioException | IOException | NoSuchAlgorithmException | InvalidKeyException e) {
-            logger.error("Can't create bucket!", e);
+            logger.error("Can't upload file!", e);
+        }
+    }
+
+    public static InputStream getFile(String id){
+        try {
+            return minioClient.getObject(GetObjectArgs.builder()
+                            .bucket(BUCKET_NAME)
+                            .object(id)
+                            .build());
+        } catch (MinioException | IOException | NoSuchAlgorithmException | InvalidKeyException e) {
+            return null;
         }
     }
 

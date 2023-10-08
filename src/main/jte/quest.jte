@@ -110,7 +110,7 @@
             @else
                 <h1>${context.quest().getTitleFR()}</h1>
                 <p>${context.quest().getDescriptionFR()}</p>
-                <form action="/questview" method="post">
+                <form action="/questview" method="post" enctype="multipart/form-data">
                     @if(context.quest() instanceof AnswerQuest)
                         <label for="answer">Ta réponse:</label>
                         <input type="text" id="answer" name="answer" required>

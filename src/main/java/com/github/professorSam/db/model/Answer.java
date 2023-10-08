@@ -23,6 +23,19 @@ public record Answer(Player player, Instant answerTimestamp, com.github.professo
         public String toString() {
             return string;
         }
+
+        public static AnswerType parse(String str){
+            if(str.equals(CHOICE.toString())){
+                return CHOICE;
+            }
+            if(str.equals(ANSWER.toString())){
+                return ANSWER;
+            }
+            if(str.equals(IMAGE.toString())){
+                return IMAGE;
+            }
+            return null;
+        }
     }
 
 }

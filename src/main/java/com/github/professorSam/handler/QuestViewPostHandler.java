@@ -56,6 +56,11 @@ public class QuestViewPostHandler implements Handler {
                 context.redirect("/questoverview");
                 return;
             }
+            if(file.size() < 10){
+                logger.info("File too small for " + player.name());
+                context.redirect("/questoverview");
+                return;
+            }
             UUID fileUUID = UUID.randomUUID();
             FileStorage.uploadFile(file.content(), fileUUID.toString());
             Answer answer = new Answer(player, timestamp, Answer.AnswerType.IMAGE, fileUUID.toString(), quest);
