@@ -56,7 +56,7 @@ public class QuestViewPostHandler implements Handler {
                 context.redirect("/questoverview");
                 return;
             }
-            if(file.size() < 10){
+            if(file.size() < 10){ //Ensure uploaded file is not empty
                 logger.info("File too small for " + player.name());
                 context.redirect("/questoverview");
                 return;

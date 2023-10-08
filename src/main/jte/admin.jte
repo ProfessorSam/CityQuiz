@@ -102,6 +102,7 @@
     .group-answers img {
         width: 140px;
     }
+
 </style>
 <main>
     <div class="dashboard">
@@ -172,7 +173,7 @@
                             <hr>
                             <h4>${answer.player().group().name()}</h4>
                             @if(quest instanceof PictureQuest)
-                                <img src="/image?id=${answer.content()}" alt="Foto von Gruppe ${answer.player().group().name()}">
+                                <a href="/image?id=${answer.content()}"><img src="/image?id=${answer.content()}" alt="Foto von Gruppe ${answer.player().group().name()}"></a>
                             @else
                                 <p>Antwort: ${answer.content()}</p>
                             @endif
