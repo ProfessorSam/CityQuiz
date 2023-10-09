@@ -21,9 +21,9 @@ geschützt, noch werden Dateien und Antworten serverseitig validiert!
 
 Um das Projekt zum Laufen zu bringen, müssen folgende dependencies installiert sein:
 - Docker um den Container zu bauen
-- Gradle 
 - Java 17
-- Ein Kubernets Cluster, sowie Kubectl
+- Ein Kubernets Cluster
+- Kubectl
 
 Zuerst sollte man die Aufgaben für die Ralley in der quests.json in /src/main/resouces auf die 
 eigenen begebenheiten anpassen. Als Aufgabentypen stehen "answer"(Einfache Antwort), "multiple choice"
