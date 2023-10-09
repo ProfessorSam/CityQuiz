@@ -168,17 +168,19 @@
                     @elseif(quest instanceof MultipleChoiceQuest multiChoiceQuest)
                         <h4>Richtige Antwort:</h4><p>${multiChoiceQuest.getRightAnswer()}</p>
                     @endif
-                    @for(Answer answer : context.answers().get(quest))
-                        <div class="group-answers">
-                            <hr>
-                            <h4>${answer.player().group().name()}</h4>
-                            @if(quest instanceof PictureQuest)
-                                <a href="/image?id=${answer.content()}"><img src="/image?id=${answer.content()}" alt="Foto von Gruppe ${answer.player().group().name()}"></a>
-                            @else
-                                <p>Antwort: ${answer.content()}</p>
-                            @endif
-                        </div>
-                    @endfor
+                    @if(context.answers().get(quest) != null)
+                        @for(Answer answer : context.answers().get(quest))
+                            <div class="group-answers">
+                                <hr>
+                                <h4>${answer.player().group().name()}</h4>
+                                @if(quest instanceof PictureQuest)
+                                    <a href="/image?id=${answer.content()}"><img src="/image?id=${answer.content()}" alt="Foto von Gruppe ${answer.player().group().name()}"></a>
+                                @else
+                                    <p>Antwort: ${answer.content()}</p>
+                                @endif
+                            </div>
+                        @endfor
+                    @endif
                 </div>
             @endfor
         </div>

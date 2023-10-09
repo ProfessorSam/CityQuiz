@@ -5,7 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/name: webserver
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app.kubernetes.io/name: webserver
@@ -21,6 +21,10 @@ spec:
           ports:
             - containerPort: 80
           env:
+            - name: INSTANCE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:

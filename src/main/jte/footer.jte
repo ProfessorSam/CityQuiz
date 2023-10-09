@@ -21,6 +21,6 @@
 </style>
 <footer>
     <div class="footer">
-        &copy; 2023 Professor Sam | <a href="https://github.com/ProfessorSam/CityQuiz" target="_blank">GitHub Repo</a>
+        &copy; 2023 Professor Sam | <a href="https://github.com/ProfessorSam/CityQuiz" target="_blank">GitHub Repo</a>@if(System.getenv("INSTANCE_NAME") != null) | Instanz: ${System.getenv("INSTANCE_NAME")} @endif
     </div>
 </footer>
