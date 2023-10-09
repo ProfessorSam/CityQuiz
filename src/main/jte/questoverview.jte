@@ -123,6 +123,25 @@
         @endfor
     </div>
 </main>
+<script>
+    const x = ${context.player().group().quest()};
+    function fetchAndRefresh() {
+        fetch('/currentquest?id=$unsafe{context.player().group().id().toString()}')
+            .then(response => response.json())
+            .then(data => {
+                const fetchedValue = data.value;
+                if (fetchedValue > x) {
+                    console.log('Current quest got updated to ' + fetchedValue + ' - previous: ' + x)
+                    location.reload(true);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+    setInterval(fetchAndRefresh, 5000);
+    fetchAndRefresh();
+</script>
 @template.footer()
 </body>
 </html>

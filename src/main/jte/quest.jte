@@ -139,6 +139,24 @@
         </div>
     </div>
 </main>
+<script>
+    const x = ${context.player().group().quest()};
+    function fetchAndRefresh() {
+        fetch('/currentquest?id=$unsafe{context.player().group().id().toString()}')
+            .then(response => response.json())
+            .then(data => {
+                const fetchedValue = data.value;
+                if (fetchedValue > x) {
+                    window.location.replace("/questoverview");
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+    setInterval(fetchAndRefresh, 3000);
+    fetchAndRefresh();
+</script>
 @template.footer()
 </body>
 </html>

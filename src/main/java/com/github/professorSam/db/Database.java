@@ -258,6 +258,20 @@ public class Database {
         return null;
     }
 
+    public static int getCurrentQuestByGroupID(String id){
+        String queryCurrentQuestByGroupIDSQL = "SELECT CurrentQuest from Groups WHERE GroupID = ?";
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(queryCurrentQuestByGroupIDSQL)){
+            preparedStatement.setString(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt("CurrentQuest");
+        } catch (SQLException e) {
+            logger.error("Can't get group's current quest", e);
+            return -1;
+        }
+    }
+
     public static HashMap<Group, List<Player>> getAllPlayersInGroups() {
         String queryPlayersAndGroupsSQL = "SELECT G.GroupID, G.GroupName, G.CurrentQuest, P.ID, P.Name, P.Nationality " +
                 "FROM Groups G " +

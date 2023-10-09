@@ -57,6 +57,7 @@ public class Main {
                 .post("/questview", new QuestViewPostHandler())
                 .get("/image", new ImageGetHandler())
                 .get("/admin", new AdminPanelGetHandler())
+                .get("/currentquest", new CurrentQuestGetHandler())
                 .start(80);
     }
 
