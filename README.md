@@ -37,15 +37,15 @@ geändert werden, sowie die Anzahl der Replicas (Es besteht Support für mehr al
 sowie die secrets in ``secret-database.yml`` und ``secret-filestorage.yml`` geändert werden 
 (Base64 encoded). Nun können die Pods, Services und Secrets deployt werden wie folgt:
 ```shell
-kubectl -f secret-database.yml
-kubectl -f secret-filestorage.yml
-kubectl -f service-database.yml
-kubectl -f service-filestorage.yml
-kubectl -f service-http.yml
-kubectl -f deployment-db.yml
-kubectl -f deployment-filestorage.yml
+kubectl apply -f secret-database.yml
+kubectl apply -f secret-filestorage.yml
+kubectl apply -f service-database.yml
+kubectl apply -f service-filestorage.yml
+kubectl apply -f service-http.yml
+kubectl apply -f deployment-db.yml
+kubectl apply -f deployment-filestorage.yml
 # Warten bis Datenbank und Filestorage online sind
-kubectl -f deployment-webserver.yml
+kubectl apply -f deployment-webserver.yml
 ```
 
 Teilnehmer der Stadtralley können nun unter ``example.com/`` an der Ralley teilnehmen und Admins 

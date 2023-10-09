@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: http-service
 spec:
+  type: LoadBalancer
   selector:
     app.kubernetes.io/name: webserver
   ports:

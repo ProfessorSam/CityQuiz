@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webserver-deployment
+  name: webserver
   labels:
     app.kubernetes.io/name: webserver
 spec:
@@ -17,7 +17,7 @@ spec:
       containers:
         - name: webserver
           image: docker.io/professorsam/cityquiz_webserver:latest
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
           env:
