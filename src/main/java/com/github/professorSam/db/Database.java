@@ -76,6 +76,10 @@ public class Database {
                     "FOREIGN KEY (UserID) REFERENCES Players(ID)" +
                     ")";
             statement.execute(createAnswersTableSQL);
+            String createEndTimeTable = "CREATE TABLE IF NOT EXISTS EndTime ("+
+                    "EndTime TIMESTAMP" +
+                    ")";
+            statement.execute(createEndTimeTable);
         } catch (SQLException e) {
             logger.error("Error setting up tables: " + e.getMessage());
         }
@@ -99,6 +103,35 @@ public class Database {
         } catch (SQLException e) {
             logger.error("Error creating player: " + e.getMessage());
             return null;
+        }
+    }
+
+    public static Instant getEndTime(){
+        String queryEndTimeSQL = "SELECT EndTime FROM EndTime LIMIT 1";
+        try (Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(queryEndTimeSQL)){
+            ResultSet resultSet = statement.executeQuery();
+            if(!resultSet.next()){
+                return null;
+            }
+            return resultSet.getTimestamp("EndTime").toInstant();
+        } catch (SQLException e) {
+            logger.error("Can't get end time: ", e);
+            return null;
+        }
+    }
+
+    public static void setEndTime(Instant instant){
+        String insertEndTimeSQL = "INSERT INTO EndTime (EndTime) VALUES (?);";
+        String deleteEndTimeSQL = "DELETE FROM EndTime";
+        try (Connection connection = getConnection();
+            PreparedStatement updateStatement = connection.prepareStatement(insertEndTimeSQL);
+            PreparedStatement deleteStatement = connection.prepareStatement(deleteEndTimeSQL)){
+            deleteStatement.executeUpdate();
+            updateStatement.setTimestamp(1, Timestamp.from(instant));
+            updateStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Can't update end time!", e);
         }
     }
 

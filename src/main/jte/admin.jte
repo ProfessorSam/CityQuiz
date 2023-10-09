@@ -46,7 +46,7 @@
     }
 
     .group {
-        background-color: #fff;
+        background-color: #ccd3ff;
         border-radius: 10px;
         padding: 20px;
         margin-bottom: 20px;
@@ -103,6 +103,20 @@
         width: 140px;
     }
 
+    #timesetting {
+        margin-bottom: 5px;
+    }
+
+    button {
+        background-color: #6B5CE0;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
 </style>
 <main>
     <div class="dashboard">
@@ -123,6 +137,16 @@
                 <h2>Fertige Gruppen</h2>
                 <p>${context.groupsDone()}</p>
             </div>
+        </div>
+
+        <div class="middle-box">
+            <h2>Einstellungen</h2>
+            <form id="timesetting" action="/adminsettime" method="post">
+                <label for="endtime"><b>Zeit festlegen:</b></label><br>
+                <input type="time" id="endtime" name="endtime" required><br>
+                <i>Es kann bis zu 1 Minute dauern bis Änderungen übernommen werden!</i><br>
+                <button type="submit">Update</button>
+            </form>
         </div>
 
         <div class="middle-box">

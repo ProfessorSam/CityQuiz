@@ -15,11 +15,17 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
     private final Javalin webserver;
+    private Instant gameEndTime;
     private List<Quest> quests;
     private static Main INSTANCE;
     private static final Logger logger = LoggerFactory.getLogger("Main");
@@ -48,6 +54,12 @@ public class Main {
         logger.info("DB connection valid. Creating tables...");
         Database.setupTables();
         logger.info("Tables created. Starting webserver...");
+        Instant instant = Database.getEndTime();
+        if(instant == null){
+            instant = Instant.now().plus(2, ChronoUnit.HOURS);
+        }
+        this.gameEndTime = instant;
+        scheduleEndTimeCheck();
         webserver = Javalin.create()
                 .get("/", new IndexGetHandler())
                 .get("/login", new LoginGetHandler())
@@ -58,7 +70,19 @@ public class Main {
                 .get("/image", new ImageGetHandler())
                 .get("/admin", new AdminPanelGetHandler())
                 .get("/currentquest", new CurrentQuestGetHandler())
+                .post("/adminsettime", new AdminSetTimePostHandler())
                 .start(80);
+    }
+
+    private void scheduleEndTimeCheck(){
+        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1);
+        executorService.scheduleAtFixedRate(() -> {
+            Instant instant = Database.getEndTime();
+            if(instant == null){
+                return;
+            }
+            gameEndTime = instant;
+        }, 1, 1, TimeUnit.MINUTES);
     }
 
     public static void main(String[] args) {
@@ -87,6 +111,9 @@ public class Main {
         return INSTANCE;
     }
 
+    public Instant getGameEndTime(){
+        return gameEndTime;
+    }
     public Javalin getWebserver() {
         return webserver;
     }
