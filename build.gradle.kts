@@ -24,6 +24,7 @@ dependencies {
     implementation("mysql:mysql-connector-java:5.1.6")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.0")
     implementation("io.minio:minio:8.5.6")
+    implementation("com.microsoft.sqlserver:mssql-jdbc:12.4.1.jre11")
 }
 
 tasks.jar {

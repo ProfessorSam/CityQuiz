@@ -55,5 +55,7 @@ spec:
               value: http://minio:9000
             - name: MINIO_BUCKET
               value: "cityquizimgs"
+            #- name: MSSQL_JDBC_URL # -> Overrides MySQL to MS SQL Server
+            #  value: "jdbc://..."
 
 
