@@ -1,94 +1,118 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "type": "answer",
-    "titleDE": "Das Geheimnis der Kirche",
-    "titleFR": "Le secret de l'Église",
-    "descriptionDE": "Gehe zur Pauluskirche. Wie viele Vögel kannst du auf dem Dach zählen?",
-    "descriptionFR": "Va à la \"Pauluskirche\". Combien d'oiseaux peux-tu compter sur le toit ?",
-    "rightAnswer": "7 Vögel"
+    "titleDE": "Bahnhof",
+    "titleFR": "Gare",
+    "descriptionDE": "Herzlich willkommen zur Stadtralley durch Hamm. Sobald ihr in eurer Gruppe zusammen seid, geht zum Bahnsteig 12/13 im Bahnhof. Zählt, wie viele blaue Schilder mit der Aufschrift 'Hamm (Westf.) Hbf' auf diesem Bahnsteig zu finden sind.",
+    "descriptionFR": "Bienvenue à la chasse au trésor dans la ville de Hamm. Une fois que vous êtes réunis en groupe, rendez-vous sur le quai 12/13 de la gare. Compte combien de panneaux bleus portant l'inscription 'Hamm (Westf.) Hbf' se trouvent sur ce quai.",
+    "rightAnswer": "5 oder 10 Schilder (Schilder sind zweiseitig)"
   }, {
-    "id": 2,
-    "type": "multiple choice",
-    "titleDE": "Der Edeka",
-    "titleFR": "L'Edeka",
-    "descriptionDE": "Gehe in den Edeka rechts neben der \"Pauluskirche\" und kaufe gehe in die Softdrinkabteilung. Welche Colahersteller ist dort vertreten?",
-    "descriptionFR": "Va dans le magasin Edeka à droite de la \"Pauluskirche\" et achète au rayon des boissons non alcoolisées. Quel fabricant de cola y est représenté?",
-    "rightAnswer": "Pepsi",
-    "choices": [
-      "Cola", "Pepsi", "FritzCola", "Sinalco"
+  "id": "2",
+  "type": "multiple choice",
+  "titleDE": "Busbahnhof",
+  "titleFR": "Gare routière",
+  "descriptionDE": "Kehrt nun zurück zum Vorplatz des Bahnhofes, wo sich der Busbahnhof befindet. Zählt, wie viele Buslinien (jede Nummer entspricht einer Linie) von den Bussteigen 1-6 abfahren.",
+  "descriptionFR": "Retournez maintenant à la place devant la gare, où se trouve la gare routière. Compte combien de lignes de bus (chaque numéro correspond à une ligne) partent des quais 1-6.",
+  "rightAnswer": "22 Linien (Manche treten doppelt auf, werden aber nur ein mal gezählt)",
+  "choices": [
+    "18", "19", "22", "26", "32"
     ]
   },
   {
-    "id": 3,
-    "type": "picture",
-    "titleDE": "Fotozeit",
-    "titleFR": "Temps de la photo",
-    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
-    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+    "id": "3",
+    "type": "answer",
+    "titleDE": "Bücherei",
+    "titleFR": "Bibliothèque",
+    "descriptionDE": "Geht nun in die Stadtbücherei. Bitte achtet darauf, leise zu sein, wenn ihr als Gruppe unterwegs seid. In der Stadtbücherei gibt es eine beeindruckende Sammlung von über 200.000 Büchern und anderen Medien. Im Jahr 2022 wurden hier insgesamt 830.000 Bücher ausgeliehen, das entspricht etwa 400 Büchern pro Stunde. Findet die Etage, auf der Bücher zu Hobbys zu finden sind, und zählt, wie viele Regale diesem Thema gewidmet sind.",
+    "descriptionFR": "Rendez-vous maintenant à la bibliothèque municipale. Veillez à être silencieux lorsque vous vous déplacez en groupe. La bibliothèque municipale abrite une impressionnante collection de plus de 200 000 livres et autres médias. En 2022, un total de 830 000 livres ont été empruntés ici, soit environ 400 livres par heure. Trouvez l'étage où vous pouvez trouver des livres sur les loisirs et comptez combien d'étagères sont dédiées à ce sujet.",
+    "rightAnswer": "3 Regale"
   },
   {
-    "id": 4,
-    "type": "picture",
-    "titleDE": "Fotozeit",
-    "titleFR": "Temps de la photo",
-    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
-    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+    "id": "4",
+    "type": "answer",
+    "titleDE": "Westentor",
+    "titleFR": "Porte de l'Ouest",
+    "descriptionDE": "Während ihr bereits in der Bibliothek seid, gönnt euch einen Augenblick, um die Aussicht zu genießen. Anschließend macht euch auf den Weg zur Haltestelle Westentor. Falls ihr nicht sicher seid, wie ihr dorthin gelangt, verlasst die Bibliothek und biegt nach Links ab, geht bis zum Ende des Gebäudes, biegt dann wieder nach links ab und folgt dem Weg bis zur Ampel. Sucht hier nach dem alten grünen Schild mit der Aufschrift 'Sändige Haltestelle der ...' an einer der blauen Säulen. Welches Verkehrsmittel hat hier früher zwischen 1989 und 1961 gehalten?",
+    "descriptionFR": "Pendant que vous êtes déjà à la bibliothèque, accordez-vous un instant pour profiter de la vue. Ensuite, rendez-vous à l'arrêt Westentor. Si vous n'êtes pas sûr de la façon d'y arriver, quittez la bibliothèque, tournez à gauche, marchez jusqu'au bout du bâtiment, puis tournez à gauche à nouveau et suivez le chemin jusqu'au feu de signalisation. Recherchez ici l'ancien panneau vert avec l'inscription 'Sändige Haltestelle der ...' sur l'un des poteaux bleus. Quel moyen de transport s'arrêtait ici entre 1989 et 1961 ?",
+    "rightAnswer": "Straßenbahn"
   },
   {
-    "id": 5,
-    "type": "picture",
-    "titleDE": "Fotozeit",
-    "titleFR": "Temps de la photo",
-    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
-    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+    "id": "5",
+    "type": "multiple choice",
+    "titleDE": "Allee Center",
+    "titleFR": "Centre Allee",
+    "descriptionDE": "Geht jetzt zum Allee Center. An den Eingängen der Geschäfte könnt ihr Aufkleber bemerken, die auf Gutscheine hinweisen, die im gesamten Allee Center eingelöst werden können. Wie heißen diese?",
+    "descriptionFR": "Rendez-vous maintenant au Centre Allee. Aux entrées des magasins, vous pouvez remarquer des autocollants indiquant des coupons qui peuvent être utilisés dans tout le Centre Allee. Comment s'appellent-ils ?",
+    "rightAnswer": "Centergutschein",
+    "choices": [
+      "Alleecenterschein", "Centergutschein", "Hamm Gutschein", "Master Gutschein", "Alleegutschein"
+    ]
   },
   {
-    "id": 6,
+    "id": "6",
     "type": "picture",
-    "titleDE": "Fotozeit",
-    "titleFR": "Temps de la photo",
-    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
-    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+    "titleDE": "Der Elefant",
+    "titleFR": "L'éléphant",
+    "descriptionDE": "Kehrt jetzt zur Fußgängerzone zurück und geht sie hinauf bis zum 'Cafe Extrablatt'. Auf der anderen Seite der Ampel werdet ihr einen gelben Elefanten sehen, der das Symbol der Stadt Hamm ist. Dieses Symbol wurde gewählt, um den Wandel von einer traditionellen Bergbaustadt zu einer modernen Gesellschaft zu repräsentieren, symbolisiert durch den Glaselefanten im Maximilianpark. Versammelt euch als Gruppe vor diesem Elefanten und erstellt ein kreatives Gruppenfoto!",
+    "descriptionFR": "Revenez maintenant à la zone piétonne et montez jusqu'au 'Cafe Extrablatt'. De l'autre côté du feu de signalisation, vous verrez un éléphant jaune, symbole de la ville de Hamm. Ce symbole a été choisi pour représenter la transition d'une ville minière traditionnelle à une société moderne, symbolisée par l'éléphant de verre du parc Maximilian. Rassemblez-vous en groupe devant cet éléphant et prenez une photo de groupe créative !"
   },
   {
-    "id": 7,
-    "type": "picture",
-    "titleDE": "Fotozeit",
-    "titleFR": "Temps de la photo",
-    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
-    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+    "id": "7",
+    "type": "multiple choice",
+    "titleDE": "Pauluskirche",
+    "titleFR": "Église Saint-Paul",
+    "descriptionDE": "Geht weiter die Fußgängerzone hinauf, bis ihr vor der Pauluskirche steht. Diese Kirche wurde im Jahr 1275 erbaut und ist fast 80 Meter hoch. Links neben dem Eingang findet ihr ein blaues Schild. Wofür steht dieses Schild?",
+    "descriptionFR": "Continuez à monter la zone piétonne jusqu'à ce que vous vous trouviez devant l'Église Saint-Paul. Cette église a été construite en 1275 et mesure près de 80 mètres de haut. À gauche de l'entrée, vous trouverez une plaque bleue. Que représente cette plaque ?",
+    "rightAnswer": "Denkmalschutz",
+    "choices": [
+      "Denkmalschutz", "Kirchenpreis", "Historische Sehenswürdigkeit", "Kriegsdenkmal", "Touristische Attraktion", "Das Schild ist bedeutungslos"
+    ]
   },
   {
-    "id": 8,
-    "type": "picture",
-    "titleDE": "Fotozeit",
-    "titleFR": "Temps de la photo",
-    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
-    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+    "id": "8",
+    "type": "answer",
+    "titleDE": "Sparkasse",
+    "titleFR": "Sparkasse",
+    "descriptionDE": "Dreht euch um. Ihr blickt jetzt auf das alte Rathaus, das heute die Sparkasse ist. In der Fassade dieses Gebäudes sind einige Informationen in Stein eingelassen. Wann wurde dieses Gebäude zerstört?",
+    "descriptionFR": "Tournez-vous. Vous regardez maintenant l'ancien hôtel de ville, qui abrite aujourd'hui la Caisse d'Épargne. Des informations sont gravées dans la façade de cet édifice. En quelle année ce bâtiment a-t-il été détruit ?",
+    "rightAnswer": "1944"
   },
   {
-    "id": 9,
-    "type": "picture",
-    "titleDE": "Fotozeit",
-    "titleFR": "Temps de la photo",
-    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
-    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+    "id": "9",
+    "type": "answer",
+    "titleDE": "Kino",
+    "titleFR": "Cinéma",
+    "descriptionDE": "Geht jetzt rechts an der Pauluskirche und am EDEKA vorbei zum Kino. Wie viele Treppenstufen könnt ihr von der Straße bis zum Eingang zählen?",
+    "descriptionFR": "Maintenant, tournez à droite près de l'Église Saint-Paul et passez devant l'EDEKA pour vous rendre au cinéma. Combien de marches pouvez-vous compter de la rue à l'entrée ?",
+    "rightAnswer": "11 Stufen"
   },
   {
-    "id": 10,
+    "id": "10",
     "type": "picture",
-    "titleDE": "Fotozeit",
-    "titleFR": "Temps de la photo",
-    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
-    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+    "titleDE": "Eiszeit",
+    "titleFR": "L'âge de glace",
+    "descriptionDE": "Geht jetzt geradeaus rechts am Kino vorbei, an den bunten Rohren wieder rechts und am Ende der Straße erneut rechts. Nun solltet ihr auf die Eisoase blicken können. Kauft euch dort ein Eis, sofern die Zeit und das Wetter es zulässt, und macht ein kreatives und lustiges Gruppenbild zusammen.",
+    "descriptionFR": "Avancez maintenant tout droit à droite du cinéma, à droite encore après les tuyaux colorés, et encore une fois à droite au bout de la rue. Vous devriez maintenant voir l'Eisoase. Achetez une glace si le temps le permet et prenez une photo de groupe créative et amusante."
   },
   {
-    "id": 11,
+    "id": "11",
+    "type": "multiple choice",
+    "titleDE": "Lutherkirche",
+    "titleFR": "Église Luther",
+    "descriptionDE": "Geht nach der Eisoase links vorbei am Santa-Monica Parkplatz und dem Krankenhaus, überquert die Ampel und geht geradeaus, bis ihr vor der Lutherkirche steht. Was zeichnet diese Kirche aus?",
+    "descriptionFR": "Passez à gauche de la L'âge de glace, devant le parking Santa-Monica et l'hôpital, traversez le feu de signalisation et avancez jusqu'à vous trouver devant l'Église Luther. Qu'est-ce qui distingue cette église ?",
+    "rightAnswer": "Jugendkirche",
+    "choices": [
+      "Die Kirche wurde 2010 erbaut", "Es ist eine katholische Kirche", "Sie hat keine Glocke", "Es ist eine Jugendkirche"
+    ]
+  },
+  {
+    "id": "12",
     "type": "picture",
-    "titleDE": "Fotozeit",
-    "titleFR": "Temps de la photo",
-    "descriptionDE": "Gehe zurück zur Bücherei. Stelle dich vor den Eingang und mache ein Foto mit deiner Gruppe. Das beste Bild kann über den Sieg entscheiden!",
-    "descriptionFR": "Retourne à la bibliothèque. Place-toi devant l'entrée et prends une photo avec ton groupe. La meilleure photo peut décider de la victoire!"
+    "titleDE": "Bahnhof",
+    "titleFR": "Gare",
+    "descriptionDE": "Geht nun weiter geradeaus, bis ihr wieder am Westentor seid, und von dort aus wieder zum Bahnhof. Wenn ihr vor dem Bahnhof steht, sucht an der Fassade nach 2 Statuen, die zwei Arbeiter darstellen, und fotografiert diese. Danach wartet hier auf die anderen Gruppen oder kehrt zurück zum vereinbarten Treffpunkt.",
+    "descriptionFR": "Avancez maintenant tout droit jusqu'à ce que vous soyez de retour à la Porte de l'Ouest, puis retournez à la gare depuis là. Lorsque vous êtes devant la gare, cherchez à la façade 2 statues représentant deux travailleurs et prenez des photos. Ensuite, attendez ici les autres groupes ou retournez au point de rendez-vous convenu."
   }
 ]

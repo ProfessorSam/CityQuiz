@@ -85,7 +85,7 @@ public class Main {
         }, 1, 1, TimeUnit.MINUTES);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         List<String> arguments = List.of(args);
         boolean dev = arguments.contains("--dev");
         INSTANCE = new Main(dev);
@@ -93,9 +93,7 @@ public class Main {
             INSTANCE.getWebserver().stop();
             Database.close();
         }));
-        while(true){
-
-        }
+        INSTANCE.getWebserver().jettyServer().server().join();
     }
 
     private TemplateEngine createTemplateEngine(boolean isDevSystem) {

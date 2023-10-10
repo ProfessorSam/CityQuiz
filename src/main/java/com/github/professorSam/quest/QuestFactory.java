@@ -28,7 +28,7 @@ public class QuestFactory {
                 String descriptionFR = node.get("descriptionFR").asText();
                 if ("answer".equals(type)) {
                     String rightAnswer = node.get("rightAnswer").asText();
-                    quests.add(new AnswerQuest(titleDE, titleFR, descriptionDE, descriptionFR, rightAnswer, id));
+                    quests.add(new AnswerQuest(titleDE, titleFR, descriptionDE, descriptionFR, id, rightAnswer));
                 } else if ("multiple choice".equals(type)) {
                     JsonNode choicesNode = node.get("choices");
                     List<String> choices = new ArrayList<>();

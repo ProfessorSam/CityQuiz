@@ -286,7 +286,10 @@ public class Database {
             PreparedStatement preparedStatement = connection.prepareStatement(queryCurrentQuestByGroupIDSQL)){
             preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
+            if(!resultSet.next()){
+                logger.info("Unkown group requested current quest for id " + id);
+                return -1;
+            }
             return resultSet.getInt("CurrentQuest");
         } catch (SQLException e) {
             logger.error("Can't get group's current quest", e);
@@ -374,7 +377,7 @@ public class Database {
                    END"""),
         CREATE_ANSWERS_TABLE("CREATE TABLE IF NOT EXISTS Answers (" +
                 "UserID VARCHAR(36)," +
-                "QuestID VARCHAR(30)," +
+                "QuestID VARCHAR(36)," +
                 "AnswerTimestamp TIMESTAMP," +
                 "QuestType VARCHAR(10)," +
                 "Content TEXT," +
@@ -387,7 +390,7 @@ public class Database {
                         UserID VARCHAR(36),
                         QuestID VARCHAR(30),
                         AnswerTimestamp DATETIME,
-                        QuestType VARCHAR(10),
+                        QuestType VARCHAR(20),
                         Content TEXT,
                         FOREIGN KEY (UserID) REFERENCES Players(ID)
                     );
@@ -435,7 +438,7 @@ public class Database {
                 "FROM Answers A " +
                 "INNER JOIN Players P ON A.UserID = P.ID " +
                 "INNER JOIN Groups G ON P.GroupID = G.GroupID;"),
-        SELECT_CURRENT_QUEST_BY_GROUPID("SELECT CurrentQuest from Groups WHERE GroupID = ?", "SELECT CurrentQuest FROM Groups WHERE GroupID = ?;"),
+        SELECT_CURRENT_QUEST_BY_GROUPID("SELECT CurrentQuest FROM Groups WHERE GroupID = ?", "SELECT CurrentQuest FROM Groups WHERE GroupID = ?;"),
         SELECT_ALL_PLAYERS_AND_GROUPS("SELECT G.GroupID, G.GroupName, G.CurrentQuest, P.ID, P.Name, P.Nationality " +
                 "FROM Groups G " +
                 "LEFT JOIN Players P ON G.GroupID = P.GroupID", "SELECT G.GroupID, G.GroupName, G.CurrentQuest, P.ID, P.Name, P.Nationality " +
