@@ -17,6 +17,14 @@ Technologien zu arbeiten. Diese sind zum Beispiel:
 Dieses Projekt sollte mit vorsicht genutzt werden. Aktuell ist weder das Adminpanel Passwort 
 geschützt, noch werden Dateien und Antworten serverseitig validiert!
 
+## Features
+- 3 verschiedene Arten von Aufgaben (Normale Antwort, Multiple Choice, Bilder)
+- Admin übersicht mit Antworten
+- Zeit übersicht für Teilnehmer
+- Scalierbarkeit des Backends durch Kubernetes Support
+- Unterstüzung von Microsoft Sql Server und MySQL
+- Deploybar auf Microsoft Azure mit AKS und MSSQL
+
 ## Deployment
 
 Um das Projekt zum Laufen zu bringen, müssen folgende dependencies installiert sein:
