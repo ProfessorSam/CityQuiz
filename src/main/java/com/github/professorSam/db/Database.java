@@ -20,6 +20,9 @@ import java.util.UUID;
 public class Database {
     private static final HikariDataSource dataSource;
     private static final Logger logger = LoggerFactory.getLogger("Database");
+    private static final String DB_HOST = System.getenv("MYSQL_HOST");
+    private static final String DB_PORT = System.getenv("MYSQL_PORT");
+    private static final String DB_DATABASE = System.getenv("MYSQL_DATABASE");
 
     static {
         try {
@@ -28,12 +31,16 @@ public class Database {
             throw new RuntimeException(e);
         }
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://mysql:3306/cityquiz");
+        config.setJdbcUrl(createJdbcUrl());
         config.setUsername(System.getenv("MYSQL_USER"));
         config.setPassword(System.getenv("MYSQL_PASSWORD"));
         config.setMaximumPoolSize(10);
         config.setAutoCommit(true);
         dataSource = new HikariDataSource(config);
+    }
+
+    private static String createJdbcUrl(){
+        return "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_DATABASE;
     }
 
     public static Connection getConnection() throws SQLException {

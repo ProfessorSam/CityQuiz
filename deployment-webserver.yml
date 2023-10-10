@@ -35,6 +35,12 @@ spec:
                 secretKeyRef:
                   name: database-secret
                   key: user-password
+            - name: MYSQL_HOST
+              value: mysql
+            - name: MYSQL_PORT
+              value: "3306"
+            - name: MYSQL_DATABASE
+              value: cityquiz
             - name: MINIO_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
@@ -45,5 +51,9 @@ spec:
                 secretKeyRef:
                   name: filestorage-secret
                   key: secret-key
+            - name: MINIO_ENDPOINT
+              value: http://minio:9000
+            - name: MINIO_BUCKET
+              value: "cityquizimgs"
 
 

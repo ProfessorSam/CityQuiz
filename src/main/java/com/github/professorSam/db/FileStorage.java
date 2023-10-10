@@ -14,8 +14,8 @@ public class FileStorage {
 
     private static final Logger logger = LoggerFactory.getLogger("FileStorage");
 
-    public static final String BUCKET_NAME = "cityquizimgs";
-    private static final String ENDPOINT = "http://minio:9000";
+    public static final String BUCKET_NAME = System.getenv("MINIO_BUCKET");
+    private static final String ENDPOINT = System.getenv("MINIO_ENDPOINT");
     private static final String ACCESS_KEY = System.getenv("MINIO_ACCESS_KEY");
     private static final String SECRET_KEY = System.getenv("MINIO_SECRET_KEY");
     private static MinioClient minioClient;
