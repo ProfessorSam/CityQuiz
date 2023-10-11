@@ -19,7 +19,7 @@ geschützt, noch werden Dateien und Antworten serverseitig validiert!
 
 ## Features
 - 3 verschiedene Arten von Aufgaben (Normale Antwort, Multiple Choice, Bilder)
-- Admin übersicht mit Antworten
+- Adminübersicht mit Antworten (Token/Passwort gesichert)
 - Zeit übersicht für Teilnehmer
 - Scalierbarkeit des Backends durch Kubernetes Support
 - Unterstüzung von Microsoft Sql Server und MySQL
@@ -42,11 +42,14 @@ Registry gepushed werden mit ``docker push [dein image name]``. Zum Testen kann 
 aktuelles Testimage genutzt werden ``docker.io/professorsam/cityquiz_webserver``. Um das ganze 
 dann auf Kubernetes zu deployen, muss nun zuerst der Imagename in ``deployment-webserver.yml`` 
 geändert werden, sowie die Anzahl der Replicas (Es besteht Support für mehr als eine Instanz), 
-sowie die secrets in ``secret-database.yml`` und ``secret-filestorage.yml`` geändert werden 
-(Base64 encoded). Nun können die Pods, Services und Secrets deployt werden wie folgt:
+sowie die secrets in ``secret-database.yml``, ``secret-filestorage.yml`` und ``secret-webserver.
+yml`` 
+geändert werden (Base64 encoded). Nun können die Pods, Services und Secrets deployt werden wie 
+folgt:
 ```shell
 kubectl apply -f secret-database.yml
 kubectl apply -f secret-filestorage.yml
+kubectl apply -f secret-webserver.yml
 kubectl apply -f service-database.yml
 kubectl apply -f service-filestorage.yml
 kubectl apply -f service-http.yml
@@ -57,7 +60,9 @@ kubectl apply -f deployment-webserver.yml
 ```
 
 Teilnehmer der Stadtralley können nun unter ``example.com/`` an der Ralley teilnehmen und Admins 
-können Antworten und Gruppen im Adminpanel unter ``example.com/admin`` einsehen
+können Antworten und Gruppen im Adminpanel unter ``example.com/admin?token=[admin token aus 
+secret-deployment.yml]`` einsehen. Wenn kein token konfiguriert wurde, ist die Adminübersicht 
+für jeden sichtbar!
 
 ## Probleme/Anmerkungen
 

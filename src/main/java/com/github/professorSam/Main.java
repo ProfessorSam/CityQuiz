@@ -25,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
 
     private final Javalin webserver;
+    private final String adminToken;
     private Instant gameEndTime;
     private List<Quest> quests;
     private static Main INSTANCE;
@@ -38,6 +39,12 @@ public class Main {
         } catch (IOException e) {
             logger.error("Can't read or find quests.json");
             System.exit(-1);
+        }
+        adminToken = System.getenv("ADMIN_TOKEN");
+        if(adminToken == null){
+            logger.warn("No admin token (Env: ADMIN_TOKEN) configured! The admin panel will be accessable for everyone!");
+        } else {
+            logger.info("Admin token found: " + adminToken);
         }
         logger.info("Questes loaded. Loading templating engine...");
         JavalinJte.init(createTemplateEngine(dev));
@@ -117,5 +124,8 @@ public class Main {
     }
     public List<Quest> getQuests() {
         return quests;
+    }
+    public String getAdminToken(){
+        return adminToken;
     }
 }

@@ -2,6 +2,7 @@ package com.github.professorSam.handler;
 
 import com.github.professorSam.Main;
 import com.github.professorSam.context.AdminPanelContext;
+import com.github.professorSam.context.ErrorContext;
 import com.github.professorSam.db.Database;
 import com.github.professorSam.db.model.Answer;
 import com.github.professorSam.db.model.Group;
@@ -24,6 +25,17 @@ public class AdminPanelGetHandler implements Handler {
 
     @Override
     public void handle(@NotNull Context context) {
+        if(Main.getInstance().getAdminToken() != null){
+            String tokenParam = context.queryParam("token");
+            if(tokenParam == null){
+                context.render("error.jte", Collections.singletonMap("context", new ErrorContext("Keine Berechtigung")));
+                return;
+            }
+            if(!tokenParam.equals(Main.getInstance().getAdminToken())){
+                context.render("error.jte", Collections.singletonMap("context", new ErrorContext("Keinen Zugang (unzulässiger admin token)")));
+                return;
+            }
+        }
         long start = Instant.now().toEpochMilli();
         int questCount = Main.getInstance().getQuests().size();
         int groupCount = Database.getGroupCount();

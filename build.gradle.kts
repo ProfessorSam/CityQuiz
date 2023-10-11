@@ -34,6 +34,7 @@ tasks.jar {
 tasks.compileJava {
     sourceCompatibility = JavaVersion.VERSION_17.toString()
     targetCompatibility = JavaVersion.VERSION_17.toString()
+    options.encoding = "UTF-8"
 }
 
 application {

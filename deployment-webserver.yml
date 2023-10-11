@@ -25,6 +25,11 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: ADMIN_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: webserver-secret
+                  key: admin-token
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
