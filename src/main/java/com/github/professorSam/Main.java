@@ -78,6 +78,7 @@ public class Main {
                 .get("/admin", new AdminPanelGetHandler())
                 .get("/currentquest", new CurrentQuestGetHandler())
                 .post("/adminsettime", new AdminSetTimePostHandler())
+                .get("/downloadAllPhotos", new DownloadPhotosGetHandler())
                 .start(80);
     }
 

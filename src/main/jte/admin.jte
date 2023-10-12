@@ -107,6 +107,17 @@
         margin-bottom: 5px;
     }
 
+    .download-button {
+        background-color: #6B5CE0;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
     button {
         background-color: #6B5CE0;
         color: #fff;
@@ -147,6 +158,19 @@
                 <i>Es kann bis zu 1 Minute dauern bis Änderungen übernommen werden!</i><br>
                 <button type="submit">Update</button>
             </form>
+        </div>
+
+        <div class="middle-box">
+            <h2>Fotos</h2>
+            @if(Main.getInstance().getAdminToken() == null)
+                <a class="download-button" href="/downloadAllPhotos">
+                    Alle Fotos Herunterladen
+                </a>
+            @else
+                <a class="download-button" href="/downloadAllPhotos?token=${Main.getInstance().getAdminToken()}">
+                    Alle Fotos Herunterladen
+                </a>
+            @endif
         </div>
 
         <div class="middle-box">

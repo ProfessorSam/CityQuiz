@@ -12,10 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Database {
     private static final HikariDataSource dataSource;
@@ -323,6 +320,29 @@ public class Database {
         }
     }
 
+    public static Map<Group, List<String>> getAllImages(){
+        String selectAllImagesSQL = getQuery(Query.SELECT_ALL_IMAGES_AND_GROUPS);
+        try (Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(selectAllImagesSQL)){
+            statement.setString(1, Answer.AnswerType.IMAGE.toString());
+            ResultSet resultSet = statement.executeQuery();
+            HashMap<String, Group> groups = new HashMap<>();
+            Map<Group, List<String>> results = new HashMap<>();
+            while (resultSet.next()){
+                String groupName = resultSet.getString("GroupName");
+                String groupID = resultSet.getString("GroupID");
+                int currentQuest = resultSet.getInt("CurrentQuest");
+                String imageID = resultSet.getString("Content");
+                Group group = groups.computeIfAbsent(groupID, k -> new Group(UUID.fromString(groupID), groupName, currentQuest));
+                results.computeIfAbsent(group, k -> new ArrayList<>()).add(imageID);
+            }
+            return results;
+        } catch (SQLException e) {
+            logger.error("Can't get all images!", e);
+            return null;
+        }
+    }
+
     private static String getQuery(Query query){
         return switch (DB_VENDOR){
             case MS_SQL -> query.mssql;
@@ -443,8 +463,20 @@ public class Database {
                 "FROM Groups G " +
                 "LEFT JOIN Players P ON G.GroupID = P.GroupID", "SELECT G.GroupID, G.GroupName, G.CurrentQuest, P.ID, P.Name, P.Nationality " +
                 "FROM Groups G " +
-                "LEFT JOIN Players P ON G.GroupID = P.GroupID;");
-
+                "LEFT JOIN Players P ON G.GroupID = P.GroupID;"),
+        SELECT_ALL_IMAGES_AND_GROUPS("SELECT Groups.GroupName as GroupName, Groups.GroupID as GroupID, Groups.CurrentQuest as CurrentQuest, Answers.Content as Content " +
+                "FROM Groups " +
+                "INNER JOIN Players " +
+                "ON Players.GroupID = Groups.GroupID " +
+                "INNER JOIN Answers " +
+                "ON Answers.UserID = Players.ID " +
+                "WHERE Answers.QuestType = ?",
+                "FROM Groups " +
+                        "INNER JOIN Players " +
+                        "ON Players.GroupID = Groups.GroupID " +
+                        "INNER JOIN Answers " +
+                        "ON Answers.UserID = Players.ID " +
+                        "WHERE Answers.QuestType = ?");
         
         private final String mysql;
         private final String mssql;

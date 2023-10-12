@@ -26,7 +26,7 @@
 
         .form-container {
             background-color: #fff;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             padding: 30px;
             border-radius: 10px;
             text-align: center;
@@ -110,12 +110,12 @@
                     <h2>Login</h2>
                     <div class="form-group">
                         <label for="username">Dein Name:</label>
-                        <input type="text" id="username" name="username" required>
+                        <input type="text" id="username" name="username" required pattern="^[a-zA-Z\s]{1,200}$">
                     </div>
 
                     <div class="form-group">
                         <label for="groupname">Name der Gruppe:</label>
-                        <input type="text" id="groupname" name="groupname" required>
+                        <input type="text" id="groupname" name="groupname" required pattern="^[a-zA-Z0-9\s]{1,20}$">
                         <p class="group-info">Achtung: Der Name der Gruppe muss bei allen Mitgliedern gleich sein</p>
                     </div>
 

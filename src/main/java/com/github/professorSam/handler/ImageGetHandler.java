@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 public class ImageGetHandler implements Handler {
@@ -15,7 +16,7 @@ public class ImageGetHandler implements Handler {
     private static final Logger logger = LoggerFactory.getLogger("ImageGet");
 
     @Override
-    public void handle(@NotNull Context context) {
+    public void handle(@NotNull Context context) throws IOException {
         String id = context.queryParam("id");
         if(id == null){
             context.status(HttpStatus.NOT_FOUND_404);

@@ -17,10 +17,17 @@
         background-color: #f2f2f2;
         font-family: Arial, sans-serif;
     }
+    .error-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 90vh;
+    }
     .error-message {
         color: red;
         font-size: 36px;
-        margin-top: 20vh;
+        margin-bottom: 20px;
     }
     .return-button {
         padding: 20px 30px;
@@ -36,10 +43,12 @@
     }
 </style>
 <main>
-    <div class="error-message">
-        <b>Fehler: ${context.message()}</b>
+    <div class="error-container">
+        <div class="error-message">
+            <b>Fehler: ${context.message()}</b>
+        </div>
+        <a class="return-button" href="/">Startseite</a>
     </div>
-    <a class="return-button" href="/">Startseite</a>
 </main>
 </body>
 @template.footer()

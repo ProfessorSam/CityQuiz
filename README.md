@@ -24,6 +24,7 @@ geschützt, noch werden Dateien und Antworten serverseitig validiert!
 - Scalierbarkeit des Backends durch Kubernetes Support
 - Unterstüzung von Microsoft Sql Server und MySQL
 - Deploybar auf Microsoft Azure mit AKS und MSSQL
+- Export aller Fotos
 
 ## Deployment
 
@@ -60,8 +61,7 @@ kubectl apply -f deployment-webserver.yml
 ```
 
 Teilnehmer der Stadtralley können nun unter ``example.com/`` an der Ralley teilnehmen und Admins 
-können Antworten und Gruppen im Adminpanel unter ``example.com/admin?token=[admin token aus 
-secret-deployment.yml]`` einsehen. Wenn kein token konfiguriert wurde, ist die Adminübersicht 
+können Antworten und Gruppen im Adminpanel unter ``example.com/admin?token=[admin token aus secret-deployment.yml]`` einsehen. Wenn kein token konfiguriert wurde, ist die Adminübersicht 
 für jeden sichtbar!
 
 ## Probleme/Anmerkungen
