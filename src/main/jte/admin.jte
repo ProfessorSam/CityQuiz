@@ -152,7 +152,7 @@
 
         <div class="middle-box">
             <h2>Einstellungen</h2>
-            <form id="timesetting" action="/adminsettime" method="post">
+            <form id="timesetting" action="/adminsettime?token=${Main.getInstance().getAdminToken()}" method="post">
                 <label for="endtime"><b>Zeit festlegen:</b></label><br>
                 <input type="time" id="endtime" name="endtime" required><br>
                 <i>Es kann bis zu 1 Minute dauern bis Änderungen übernommen werden!</i><br>

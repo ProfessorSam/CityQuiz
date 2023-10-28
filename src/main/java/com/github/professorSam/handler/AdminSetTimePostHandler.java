@@ -25,6 +25,10 @@ public class AdminSetTimePostHandler implements Handler {
         }
         String time = context.formParam("endtime");
         if(time == null){
+            if(Main.getInstance().getAdminToken() != null){
+                context.redirect("/admin?token=" + Main.getInstance().getAdminToken());
+                return;
+            }
             context.redirect("/admin");
             return;
         }
@@ -34,6 +38,10 @@ public class AdminSetTimePostHandler implements Handler {
         Instant instant = zonedDateTime.toInstant();
         Database.setEndTime(instant);
         logger.info("New time: " + time);
+        if(Main.getInstance().getAdminToken() != null){
+            context.redirect("/admin?token=" + Main.getInstance().getAdminToken());
+            return;
+        }
         context.redirect("/admin");
     }
 }
