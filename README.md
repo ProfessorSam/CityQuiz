@@ -11,11 +11,12 @@ Technologien zu arbeiten. Diese sind zum Beispiel:
 - Gradle
 - S3/Minio
 - Templating Engine(jte)/Frontend development
+- Helm Charts
 
 ## Warnung
 
-Dieses Projekt sollte mit vorsicht genutzt werden. Aktuell ist weder das Adminpanel Passwort 
-geschützt, noch werden Dateien und Antworten serverseitig validiert!
+Dieses Projekt sollte mit vorsicht genutzt werden. Aktuell werden Antworten und Dateien nicht 
+Serverseitig validiert
 
 ## Features
 - 3 verschiedene Arten von Aufgaben (Normale Antwort, Multiple Choice, Bilder)
@@ -33,35 +34,27 @@ Um das Projekt zum Laufen zu bringen, müssen folgende dependencies installiert 
 - Java 17
 - Ein Kubernets Cluster
 - Kubectl
+- Helm
 
-Zuerst sollte man die Aufgaben für die Ralley in der quests.json in /src/main/resouces auf die 
+Zuerst sollte man die Aufgaben für die Ralley in der quests.json in ``/src/main/resouces`` auf die 
 eigenen begebenheiten anpassen. Als Aufgabentypen stehen "answer"(Einfache Antwort), "multiple choice"
 (Multiple Choice) und "picture"(Foto aufnehmen) zur Verfügung. Danach sollte das Projekt gebaut 
 werden mit ``gradlew shadowJar`` um eine .jar Datei zu erzeugen. Nun muss ein Docker Image 
 darauf gebaut werden mit ``docker build . -t [dein imgae name]`` und anschließend in die 
-Registry gepushed werden mit ``docker push [dein image name]``. Zum Testen kann auch mein 
-aktuelles Testimage genutzt werden ``docker.io/professorsam/cityquiz_webserver``. Um das ganze 
-dann auf Kubernetes zu deployen, muss nun zuerst der Imagename in ``deployment-webserver.yml`` 
-geändert werden, sowie die Anzahl der Replicas (Es besteht Support für mehr als eine Instanz), 
-sowie die secrets in ``secret-database.yml``, ``secret-filestorage.yml`` und ``secret-webserver.
-yml`` 
-geändert werden (Base64 encoded). Nun können die Pods, Services und Secrets deployt werden wie 
-folgt:
-```shell
-kubectl apply -f secret-database.yml
-kubectl apply -f secret-filestorage.yml
-kubectl apply -f secret-webserver.yml
-kubectl apply -f service-database.yml
-kubectl apply -f service-filestorage.yml
-kubectl apply -f service-http.yml
-kubectl apply -f deployment-db.yml
-kubectl apply -f deployment-filestorage.yml
-# Warten bis Datenbank und Filestorage online sind
-kubectl apply -f deployment-webserver.yml
-```
+Registry gepushed werden mit ``docker push [dein image name]``. Nun muss dieses Image in einer 
+values.yml Datei unter image.name und image.tag eingetragen werden. Ist dies erfolgt können 
+weitere Einstellungen dort vorgenommen werden. Als Referenz kann die default values.yml in 
+cityquiz/values.yml herangezogen werden. Sollte statt einer MySQL Datenbank ein Microsoft SQL 
+Server verwendet werden, so kann unter ``mssql.sqlserverjdbc`` ein JDBC-Connection String 
+konfiguriert werden.
+
+Um das Projekt nun zu deployen, kann ``helm install [releaseName] -f [deine-values.yml] .
+/cityquiz`` genutzt 
+werden, 
+sofern im root Verzeichnis des Projekts ausgeführt.
 
 Teilnehmer der Stadtralley können nun unter ``example.com/`` an der Ralley teilnehmen und Admins 
-können Antworten und Gruppen im Adminpanel unter ``example.com/admin?token=[admin token aus secret-deployment.yml]`` einsehen. Wenn kein token konfiguriert wurde, ist die Adminübersicht 
+können Antworten und Gruppen im Adminpanel unter ``example.com/admin?token=[admin token values.yml webserver.token]`` einsehen. Wenn kein token konfiguriert wurde, ist die Adminübersicht 
 für jeden sichtbar!
 
 ## Probleme/Anmerkungen
@@ -70,5 +63,5 @@ Bei Problemen oder Anmerkungen bitte ein Issue eröffnen
 
 ## Entwickler
 
-Zum lokalen Entwickeln habe ich minikube genutzt. Nach Änderungen am Code kann dieser durch die 
-"build.bat" schnell und einfach auf das Cluster übertragen werden.
+Zum lokalen Entwickeln unter Windows kann Docker Desktop mit dem build-in K8s Cluster genutzt 
+werden.

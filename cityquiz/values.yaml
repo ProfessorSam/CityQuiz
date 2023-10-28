@@ -1,0 +1,26 @@
+image:
+  tag: latest
+  name: docker.io/professorsam/cityquiz_webserver
+mysql:
+  # Should the integrated MySQL container be used
+  enabled: true
+  host: "mysql"
+  port: 3306
+  auth:
+    username: "cityquiz"
+    password: "PizzaIsN1c3."
+    rootPassword: "S3cr3tRO0tP4zzw0rd!"
+    database: "cityquiz"
+mssql:
+  # Use MS SQL Server. To connect enter a jdbc connection string. Will override all mysql settings
+  sqlserverjdbc: ""
+filestorage:
+  # Use a bundled S3 container
+  enabled: true
+  accesskey: "Sn3akySn4ke!"
+  secretkey: "V4ryS3cr3tK3y/!"
+  endpoint: "http://minio:9000"
+  bucket: "cityquiz"
+webserver:
+  # Tolen to enter the admin panel (/admin?token=token)
+  token: "AIDhjawiodhawiuguw"

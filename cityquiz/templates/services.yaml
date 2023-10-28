@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-httpservice
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: webserver
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+
+{{ if .Values.mysql.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: mysql
+{{ end }}
+{{ if .Values.filestorage }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+spec:
+  ports:
+    - port: 9000
+  selector:
+    app: minio
+{{ end }}

@@ -21,7 +21,7 @@ dependencies {
     implementation("io.javalin:javalin-rendering:5.6.1")
     implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("gg.jte:jte:3.1.1")
-    implementation("mysql:mysql-connector-java:5.1.6")
+    implementation("mysql:mysql-connector-java:8.0.13")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.0")
     implementation("io.minio:minio:8.5.6")
     implementation("com.microsoft.sqlserver:mssql-jdbc:12.4.1.jre11")

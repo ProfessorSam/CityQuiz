@@ -15,7 +15,7 @@ import java.time.Instant;
 import java.util.*;
 
 public class Database {
-    private static final HikariDataSource dataSource;
+    private static HikariDataSource dataSource;
     private static final Logger logger = LoggerFactory.getLogger("Database");
     private static final String DB_HOST = System.getenv("MYSQL_HOST");
     private static final String DB_PORT = System.getenv("MYSQL_PORT");
@@ -26,11 +26,11 @@ public class Database {
 
     static {
         HikariConfig config = new HikariConfig();
-        if(MSSQL_URL == null){
+        if(MSSQL_URL == null || MSSQL_URL.isEmpty() || MSSQL_URL.isBlank()){
             DB_VENDOR = DBVendor.MY_SQL;
             logger.info("Using MySQL Driver");
             try {
-                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -49,7 +49,23 @@ public class Database {
         }
         config.setMaximumPoolSize(10);
         config.setAutoCommit(true);
-        dataSource = new HikariDataSource(config);
+        int retry = 1;
+        while (retry <= 5){
+            try {
+                dataSource = new HikariDataSource(config);
+                break;
+            } catch (Exception e){
+                logger.warn("Error: " + e.getMessage());
+                logger.info("Waiting before retry:");
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+                logger.info( retry + " - Retry...");
+            }
+            retry++;
+        }
     }
 
     public static Connection getConnection() throws SQLException {
@@ -76,7 +92,7 @@ public class Database {
             String createEndTimeTable = getQuery(Query.CREATE_END_TIME_TABLE);
             statement.execute(createEndTimeTable);
         } catch (SQLException e) {
-            logger.error("Error setting up tables: " + e.getMessage());
+            logger.error("Error setting up tables: ", e);
         }
     }
 
@@ -364,11 +380,11 @@ public class Database {
 
     private enum Query {
         CREATE_GROUP_TABLE(
-                "CREATE TABLE IF NOT EXISTS Groups (" +
-                "GroupID VARCHAR(36) PRIMARY KEY," +
-                "CurrentQuest INTEGER," +
+                "CREATE TABLE IF NOT EXISTS `Groups` (" +
+                "GroupID VARCHAR(36) PRIMARY KEY, " +
+                "CurrentQuest INT, " +
                 "GroupName VARCHAR(255)" +
-                ")",
+                ");",
                 """
                         IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Groups')BEGIN
                             CREATE TABLE Groups (
@@ -377,12 +393,12 @@ public class Database {
                                 GroupName VARCHAR(255)
                             );
                         END"""),
-        CREATE_PLAYERS_TABLE("CREATE TABLE IF NOT EXISTS Players (" +
+        CREATE_PLAYERS_TABLE("CREATE TABLE IF NOT EXISTS `Players` (" +
                 "ID VARCHAR(36) PRIMARY KEY," +
                 "GroupID VARCHAR(36)," +
                 "Name VARCHAR(255)," +
                 "Nationality VARCHAR(255)," +
-                "FOREIGN KEY (GroupID) REFERENCES Groups(GroupID)" +
+                "FOREIGN KEY (GroupID) REFERENCES `Groups`(GroupID)" +
                 ")",
                 """
                    IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Players')
@@ -430,13 +446,13 @@ public class Database {
         SELECT_ENDTIME("SELECT EndTime FROM EndTime LIMIT 1", "SELECT TOP 1 EndTime FROM EndTime;"),
         INSERT_ENDTIME("INSERT INTO EndTime (EndTime) VALUES (?)", "INSERT INTO EndTime (EndTime) VALUES (?);"),
         DELETE_ENDTIME("DELETE FROM EndTime", "DELETE FROM EndTime"),
-        SELECT_GROUPID_BY_NAME("SELECT GroupID, CurrentQuest FROM Groups WHERE GroupName = ?", "SELECT GroupID, CurrentQuest FROM Groups WHERE GroupName = ?;"),
-        INSERT_GROUP("INSERT INTO Groups (GroupID, CurrentQuest, GroupName) VALUES (?, ?, ?)", "INSERT INTO Groups (GroupID, CurrentQuest, GroupName) VALUES (?, ?, ?)"),
+        SELECT_GROUPID_BY_NAME("SELECT GroupID, CurrentQuest FROM `Groups` WHERE GroupName = ?", "SELECT GroupID, CurrentQuest FROM Groups WHERE GroupName = ?;"),
+        INSERT_GROUP("INSERT INTO `Groups` (GroupID, CurrentQuest, GroupName) VALUES (?, ?, ?)", "INSERT INTO Groups (GroupID, CurrentQuest, GroupName) VALUES (?, ?, ?)"),
         SELECT_PLAYER_AND_GROUP("SELECT p.ID AS PlayerID, p.Name AS PlayerName, " +
                 "p.Nationality AS PlayerNationality, " +
                 "g.GroupID, g.GroupName, g.CurrentQuest " +
                 "FROM Players p " +
-                "INNER JOIN Groups g ON p.GroupID = g.GroupID " +
+                "INNER JOIN `Groups` g ON p.GroupID = g.GroupID " +
                 "WHERE p.ID = ?",
                 "SELECT p.ID AS PlayerID, p.Name AS PlayerName, " +
                         "p.Nationality AS PlayerNationality, " +
@@ -445,7 +461,7 @@ public class Database {
                         "INNER JOIN Groups g ON p.GroupID = g.GroupID " +
                         "WHERE p.ID = ?;"),
         INSERT_ANSWER("INSERT INTO Answers (UserID, QuestID, AnswerTimestamp, QuestType, Content) VALUES (?, ?, ?, ?, ?)", "INSERT INTO Answers (UserID, QuestID, AnswerTimestamp, QuestType, Content) VALUES (?, ?, ?, ?, ?);"),
-        INCREMENT_QUEST("UPDATE Groups SET CurrentQuest = CurrentQuest + 1 WHERE GroupID = ?", "UPDATE Groups SET CurrentQuest = CurrentQuest + 1 WHERE GroupID = ?;"),
+        INCREMENT_QUEST("UPDATE `Groups` SET CurrentQuest = CurrentQuest + 1 WHERE GroupID = ?", "UPDATE Groups SET CurrentQuest = CurrentQuest + 1 WHERE GroupID = ?;"),
         SELECT_PLAYER_COUNT("SELECT COUNT(*) AS PlayerCount FROM Players", "SELECT COUNT(*) AS PlayerCount FROM Players;"),
         SELECT_GROUP_COUNT("SELECT COUNT(*) AS GroupCount FROM `Groups`", "SELECT COUNT(*) AS GroupCount FROM Groups;"),
         SELECT_GOUPS_DONE_COUNT("SELECT COUNT(*) AS GroupsDone FROM `Groups` WHERE CurrentQuest = ?", "SELECT COUNT(*) AS GroupsDone FROM Groups WHERE CurrentQuest = ?;"),
@@ -453,21 +469,21 @@ public class Database {
                 "P.ID, P.Name, P.Nationality, G.GroupName " +
                 "FROM Answers A " +
                 "INNER JOIN Players P ON A.UserID = P.ID " +
-                "INNER JOIN Groups G ON P.GroupID = G.GroupID", "SELECT A.QuestID, A.AnswerTimestamp, A.QuestType, A.Content, " +
+                "INNER JOIN `Groups` G ON P.GroupID = G.GroupID", "SELECT A.QuestID, A.AnswerTimestamp, A.QuestType, A.Content, " +
                 "P.ID, P.Name, P.Nationality, G.GroupName " +
                 "FROM Answers A " +
                 "INNER JOIN Players P ON A.UserID = P.ID " +
                 "INNER JOIN Groups G ON P.GroupID = G.GroupID;"),
-        SELECT_CURRENT_QUEST_BY_GROUPID("SELECT CurrentQuest FROM Groups WHERE GroupID = ?", "SELECT CurrentQuest FROM Groups WHERE GroupID = ?;"),
+        SELECT_CURRENT_QUEST_BY_GROUPID("SELECT CurrentQuest FROM `Groups` WHERE GroupID = ?", "SELECT CurrentQuest FROM Groups WHERE GroupID = ?;"),
         SELECT_ALL_PLAYERS_AND_GROUPS("SELECT G.GroupID, G.GroupName, G.CurrentQuest, P.ID, P.Name, P.Nationality " +
-                "FROM Groups G " +
+                "FROM `Groups` G " +
                 "LEFT JOIN Players P ON G.GroupID = P.GroupID", "SELECT G.GroupID, G.GroupName, G.CurrentQuest, P.ID, P.Name, P.Nationality " +
                 "FROM Groups G " +
                 "LEFT JOIN Players P ON G.GroupID = P.GroupID;"),
-        SELECT_ALL_IMAGES_AND_GROUPS("SELECT Groups.GroupName as GroupName, Groups.GroupID as GroupID, Groups.CurrentQuest as CurrentQuest, Answers.Content as Content " +
-                "FROM Groups " +
+        SELECT_ALL_IMAGES_AND_GROUPS("SELECT `Groups`.GroupName as GroupName, `Groups`.GroupID as GroupID, `Groups`.CurrentQuest as CurrentQuest, Answers.Content as Content " +
+                "FROM `Groups` " +
                 "INNER JOIN Players " +
-                "ON Players.GroupID = Groups.GroupID " +
+                "ON Players.GroupID = `Groups`.GroupID " +
                 "INNER JOIN Answers " +
                 "ON Answers.UserID = Players.ID " +
                 "WHERE Answers.QuestType = ?",
